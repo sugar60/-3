@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> <3 </title>
+ 
+    <style>
+        body{
+            background-color: rgb(247, 194, 202);
+        }
+#webcam{
+
+width: 200px;
+height: 200px;
+border: 1px solid rgb(164, 164, 164);
+background-color: rgb(255, 255, 255);
+border-radius: 14px;
+}
+#box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+h3{
+    text-align: center;
+}
+button{
+    margin: 12px;
+}
+
+#startButton{
+    background-color: skyblue;
+    color: white;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 7px;
+    font-size: 12px;
+    cursor: pointer;
+
+}
+#stopButton{
+    background-color: white;
+    color: skyblue;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 7px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+#startButton:active {
+    background-color: #ffffff;
+    transform: scale(0.95);
+    color: skyblue;
+}
+#stopButton:active {
+    background-color: skyblue;
+    transform: scale(0.95);
+    color: rgb(255, 255, 255);
+}
+#but{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+    </style>
+</head>
+
+<body>
+    <h3>HEH😼</h3>
+    <div id="box">
+
+        <video id="webcam" autoplay></video>
+    </div >
+    <div id="but">
+
+        <button id="startButton" >Click here to see My Universe ❤️</button>
+        <button id="stopButton">Okie Enough Stop looking 😼</button>
+    </div>
+
+    <script >
+       let stream = null;
+
+document.getElementById('startButton').addEventListener('click', function() {
+    const constraints = {
+        video: true
+    };
+
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then(function(mediaStream) {
+            stream = mediaStream;
+            const video = document.getElementById('webcam');
+            video.srcObject = stream;
+        })
+        .catch(function(err) {
+            console.error('Error accessing the webcam: ' + err);
+        });
+});
+
+document.getElementById('stopButton').addEventListener('click', function() {
+    if (stream) {
+        const tracks = stream.getTracks();
+
+        tracks.forEach(function(track) {
+            track.stop();
+        });
+
+        const video = document.getElementById('webcam');
+        video.srcObject = null;
+        stream = null;
+    }
+});
+
+    </script>
+</body>
+</html>
